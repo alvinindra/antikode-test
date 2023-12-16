@@ -50,7 +50,13 @@ export default function Game() {
       const newX = blueTilePosition.x + direction.x
       const newY = blueTilePosition.y + direction.y
 
-      if (newX >= 0 && newX < numCols && newY >= 0 && newY < numRows) {
+      if (
+        newX >= 0 &&
+        newX < numCols &&
+        newY >= 0 &&
+        newY < numRows &&
+        tiles[newY][newX].type !== 'empty'
+      ) {
         setBlueTilePosition({ x: newX, y: newY })
       }
 
@@ -62,11 +68,9 @@ export default function Game() {
       ) {
         setScore((prevScore) => prevScore + 100)
 
-        // Turn yellow tile into blue
         const updatedTiles = [...tiles]
         updatedTiles[newY][newX].type = 'blue'
 
-        // Spawn a new yellow tile at a random position
         const newYellowPosition =
           generateRandomYellowPosition(emptyTilesPosition)
         const newY2 = Math.floor(newYellowPosition / numCols)
