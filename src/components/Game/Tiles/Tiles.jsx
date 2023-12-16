@@ -17,14 +17,17 @@ const generateRandomYellowPosition = (excludedPositions) => {
 
 const Tiles = ({ score, setScore }) => {
   const [tiles, setTiles] = useState([])
-  const [blueTilePosition, setBlueTilePosition] = useState({ x: 2, y: 2 })
+  const [blueTilePosition, setBlueTilePosition] = useState({ x: 0, y: 5 })
 
   useEffect(() => {
     const newTiles = Array.from({ length: numRows }, (_, rowIndex) =>
-      Array.from({ length: numCols }, (_, colIndex) => ({
-        id: rowIndex * numCols + colIndex + 1,
-        type: 'normal',
-      }))
+      Array.from({ length: numCols }, (_, colIndex) => {
+        const tileId = rowIndex * numCols + colIndex + 1
+        return {
+          id: tileId,
+          type: emptyTilesPosition.includes(tileId) ? 'empty' : 'normal',
+        }
+      })
     )
 
     const yellowTilePosition = generateRandomYellowPosition(emptyTilesPosition)
@@ -101,7 +104,7 @@ const Tiles = ({ score, setScore }) => {
         {tiles.map((row, rowIndex) =>
           row.map((tile) => (
             <div
-              key={rowIndex + tile.id}
+              key={rowIndex * numCols + tile.id}
               className={clsx(
                 styles.tile,
                 tile.type === 'yellow' && styles.tileYellow,

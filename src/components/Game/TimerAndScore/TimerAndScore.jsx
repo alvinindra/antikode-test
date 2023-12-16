@@ -4,12 +4,14 @@ export default function TimerAndScore({ score }) {
   const [timer, setTimer] = useState(60) // 60 seconds timer
 
   useEffect(() => {
-    const timerInterval = setInterval(() => {
-      setTimer((prevTimer) => prevTimer - 1)
-    }, 1000)
+    if (timer > 0) {
+      const timerInterval = setInterval(() => {
+        setTimer((prevTimer) => prevTimer - 1)
+      }, 1000)
 
-    return () => clearInterval(timerInterval)
-  }, [])
+      return () => clearInterval(timerInterval)
+    }
+  }, [timer])
 
   useEffect(() => {
     // Game over logic
