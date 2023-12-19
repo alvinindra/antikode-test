@@ -84,6 +84,7 @@ export default function Game() {
   }, [tiles])
 
   const [score, setScore] = useState(0)
+  const [gameOver, setGameOver] = useState(false)
   const [yellowPoint, setYellowPoint] = useState()
 
   useEffect(() => {
@@ -107,7 +108,7 @@ export default function Game() {
 
   const moveTile = useCallback(
     (direction) => () => {
-      if (bluePoint) {
+      if (bluePoint && !gameOver) {
         let target = null
         switch (direction) {
           case ArrowDirectionEnum.UP:
@@ -134,12 +135,12 @@ export default function Game() {
         }
       }
     },
-    [bluePoint, redAreas, dimension, setPointPosition]
+    [bluePoint, gameOver, redAreas, dimension, setPointPosition]
   )
 
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (bluePoint) {
+      if (bluePoint && !gameOver) {
         const { keyCode } = event
         let target = null
         switch (keyCode) {
@@ -172,7 +173,7 @@ export default function Game() {
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [bluePoint, dimension, moveTile, redAreas, setPointPosition])
+  }, [bluePoint, dimension, gameOver, moveTile, redAreas, setPointPosition])
 
   return (
     <>
@@ -188,7 +189,11 @@ export default function Game() {
         >
           <div className="pt-4 px-4 container">
             <Tiles tiles={tiles} moveTile={moveTile} />
-            <TimerAndScore score={score} />
+            <TimerAndScore
+              score={score}
+              gameOver={gameOver}
+              setGameOver={setGameOver}
+            />
           </div>
           <div className="container mt-auto mb-5 align-self-center">
             <div className="row mt-auto">

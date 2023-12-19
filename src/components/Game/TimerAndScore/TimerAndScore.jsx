@@ -1,6 +1,11 @@
+import clsx from 'clsx'
+import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import Modal from 'react-bootstrap/Modal'
+import styles from '@/styles/Game.module.scss'
 
-export default function TimerAndScore({ score }) {
+export default function TimerAndScore({ score, gameOver, setGameOver }) {
+  const router = useRouter()
   const [timer, setTimer] = useState(60) // 60 seconds timer
 
   useEffect(() => {
@@ -14,11 +19,14 @@ export default function TimerAndScore({ score }) {
   }, [timer])
 
   useEffect(() => {
-    // Game over logic
     if (timer === 0) {
-      alert(`Game over! Your score is ${score}`)
+      setGameOver(true)
     }
-  }, [timer, score])
+  }, [timer, score, setGameOver])
+
+  const handleRetryGame = () => {
+    router.reload()
+  }
 
   const formatTime = (timeInSeconds) => {
     const minutes = Math.floor(timeInSeconds / 60)
@@ -29,11 +37,35 @@ export default function TimerAndScore({ score }) {
   }
 
   return (
-    <div className="row px-1">
-      <div className="col-6 fw-bold text-start text-white">
-        {formatTime(timer)}
+    <>
+      <div className="row px-1">
+        <div className="col-6 fw-bold text-start text-white">
+          {formatTime(timer)}
+        </div>
+        <div className="col-6 fw-bold text-end text-white">Total: {score}</div>
       </div>
-      <div className="col-6 fw-bold text-end text-white">Total: {score}</div>
-    </div>
+      <Modal
+        show={gameOver}
+        backdrop="static"
+        keyboard={false}
+        size="sm"
+        dialogClassName="modal-10w"
+        centered
+      >
+        <Modal.Body>
+          <div className="text-center justify-content-center">
+            <div className="mb-3">
+              <strong>Your points: {score}</strong>
+            </div>
+            <button
+              className={clsx(styles.btnRetry, 'btn fw-bold')}
+              onClick={handleRetryGame}
+            >
+              Retry
+            </button>
+          </div>
+        </Modal.Body>
+      </Modal>
+    </>
   )
 }
