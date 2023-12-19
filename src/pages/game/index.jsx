@@ -5,102 +5,174 @@ import styles from '@/styles/Game.module.scss'
 import { ArrowDirectionEnum } from '@/utils/enum'
 import clsx from 'clsx'
 import Head from 'next/head'
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
-const emptyTilesPosition = [8, 9, 10, 11, 14, 23, 26, 29]
-const numRows = 6
-const numCols = 6
-const numTiles = numRows * numCols
-
-const generateRandomYellowPosition = (excludedPositions) => {
-  let yellowTilePosition
-  do {
-    yellowTilePosition = Math.floor(Math.random() * numTiles)
-  } while (excludedPositions.includes(yellowTilePosition))
-  return yellowTilePosition
+function checkCollision(p1, p2) {
+  return p1?.[0] === p2?.[0] && p1?.[1] === p2?.[1]
 }
 
 export default function Game() {
-  const [score, setScore] = useState(0)
-
-  const [tiles, setTiles] = useState([])
-  const [blueTilePosition, setBlueTilePosition] = useState({ x: 0, y: 5 })
-
-  useEffect(() => {
-    const newTiles = Array.from({ length: numRows }, (_, rowIndex) =>
-      Array.from({ length: numCols }, (_, colIndex) => {
-        const tileId = rowIndex * numCols + colIndex + 1
-        return {
-          id: tileId,
-          type: emptyTilesPosition.includes(tileId) ? 'empty' : 'normal',
-        }
-      })
-    )
-
-    const yellowTilePosition = generateRandomYellowPosition(emptyTilesPosition)
-    const yellowTileX = yellowTilePosition % numCols
-    const yellowTileY = Math.floor(yellowTilePosition / numCols)
-    newTiles[yellowTileY][yellowTileX].type = 'yellow'
-
-    setTiles(newTiles)
-  }, [])
-
-  const moveBlueTile = useMemo(
-    () => (direction) => {
-      const newX = blueTilePosition.x + direction.x
-      const newY = blueTilePosition.y + direction.y
-
-      if (
-        newX >= 0 &&
-        newX < numCols &&
-        newY >= 0 &&
-        newY < numRows &&
-        tiles[newY][newX].type !== 'empty'
-      ) {
-        setBlueTilePosition({ x: newX, y: newY })
-      }
-
-      if (
-        newY < tiles?.length &&
-        newX < tiles[newY]?.length &&
-        tiles[newY][newX] &&
-        tiles[newY][newX].type === 'yellow'
-      ) {
-        setScore((prevScore) => prevScore + 100)
-
-        const updatedTiles = [...tiles]
-        updatedTiles[newY][newX].type = 'blue'
-
-        const newYellowPosition =
-          generateRandomYellowPosition(emptyTilesPosition)
-        const newY2 = Math.floor(newYellowPosition / numCols)
-        const newX2 = newYellowPosition % numCols
-        updatedTiles[newY2][newX2].type = 'yellow'
-
-        setTiles(updatedTiles)
-      }
-    },
-    [blueTilePosition.x, blueTilePosition.y, setScore, tiles]
+  const dimension = useMemo(() => [6, 6], [])
+  const redAreas = useMemo(
+    () => [
+      [1, 1],
+      [2, 1],
+      [3, 1],
+      [4, 1],
+      [1, 2],
+      [1, 4],
+      [4, 3],
+      [4, 4],
+    ],
+    []
   )
 
-  const handleArrowClick = (direction) => {
-    switch (direction) {
-      case ArrowDirectionEnum.UP:
-        moveBlueTile({ x: 0, y: -1 })
-        break
-      case ArrowDirectionEnum.DOWN:
-        moveBlueTile({ x: 0, y: 1 })
-        break
-      case ArrowDirectionEnum.LEFT:
-        moveBlueTile({ x: -1, y: 0 })
-        break
-      case ArrowDirectionEnum.RIGHT:
-        moveBlueTile({ x: 1, y: 0 })
-        break
-      default:
-        break
+  const [tiles, setTiles] = useState()
+
+  useEffect(() => {
+    const rows = []
+    for (let pointX = 0; pointX < dimension[0]; pointX++) {
+      const cols = []
+      for (let pointY = 0; pointY < dimension[1]; pointY++) {
+        cols.push(
+          redAreas.some((redPoint) =>
+            checkCollision(redPoint, [pointX, pointY])
+          )
+            ? 'RED'
+            : 'WHITE'
+        )
+      }
+      rows.push(cols)
     }
-  }
+    setTiles(rows)
+  }, [dimension, redAreas])
+
+  const setPointPosition = useCallback((type, target, source) => {
+    setTiles((tile) => {
+      if (tile) {
+        tile[target[0]][target[1]] = type
+        if (source) tile[source[0]][source[1]] = 'WHITE'
+
+        return [...tile]
+      }
+
+      return tile
+    })
+  }, [])
+
+  const [bluePoint, setBluePoint] = useState()
+
+  useEffect(() => {
+    if (!bluePoint) {
+      const target = [0, 5]
+      setPointPosition('BLUE', target)
+      setBluePoint(target)
+    }
+  }, [bluePoint, setPointPosition])
+
+  const whiteAreas = useMemo(() => {
+    return (
+      tiles
+        ?.map((row, rowIndex) =>
+          row.map((col, colIndex) =>
+            col === 'WHITE' ? [rowIndex, colIndex] : null
+          )
+        )
+        .flat()
+        .filter((v) => v) ?? []
+    )
+  }, [tiles])
+
+  const [score, setScore] = useState(0)
+  const [yellowPoint, setYellowPoint] = useState()
+
+  useEffect(() => {
+    if (bluePoint && yellowPoint && checkCollision(bluePoint, yellowPoint)) {
+      setScore((prevScore) => prevScore + 100)
+    }
+  }, [bluePoint, yellowPoint])
+
+  useEffect(() => {
+    if ((bluePoint && !yellowPoint) || checkCollision(bluePoint, yellowPoint)) {
+      const point = Math.floor(Math.random() * whiteAreas.length) - 1
+      if (point >= 0) {
+        const target = whiteAreas[point]
+        if (target) {
+          setPointPosition('YELLOW', target)
+          setYellowPoint(target)
+        }
+      }
+    }
+  }, [bluePoint, yellowPoint, whiteAreas, setPointPosition])
+
+  const moveTile = useCallback(
+    (direction) => () => {
+      if (bluePoint) {
+        let target = null
+        switch (direction) {
+          case ArrowDirectionEnum.UP:
+            if (bluePoint[1] > 0) target = [bluePoint[0], bluePoint[1] - 1]
+            break
+          case ArrowDirectionEnum.DOWN:
+            if (bluePoint[1] < dimension[1] - 1)
+              target = [bluePoint[0], bluePoint[1] + 1]
+            break
+          case ArrowDirectionEnum.LEFT:
+            if (bluePoint[0] > 0) target = [bluePoint[0] - 1, bluePoint[1]]
+            break
+          case ArrowDirectionEnum.RIGHT:
+            if (bluePoint[0] < dimension[0] - 1)
+              target = [bluePoint[0] + 1, bluePoint[1]]
+            break
+        }
+        if (
+          target &&
+          !redAreas.some((redPoint) => checkCollision(redPoint, target))
+        ) {
+          setPointPosition('BLUE', target, bluePoint)
+          setBluePoint(target)
+        }
+      }
+    },
+    [bluePoint, redAreas, dimension, setPointPosition]
+  )
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (bluePoint) {
+        const { keyCode } = event
+        let target = null
+        switch (keyCode) {
+          case 37: // Left arrow
+            if (bluePoint[0] > 0) target = [bluePoint[0] - 1, bluePoint[1]]
+            break
+          case 38: // Up arrow
+            if (bluePoint[1] > 0) target = [bluePoint[0], bluePoint[1] - 1]
+            break
+          case 39: // Right arrow
+            if (bluePoint[0] < dimension[0] - 1)
+              target = [bluePoint[0] + 1, bluePoint[1]]
+            break
+          case 40: // Down arrow
+            if (bluePoint[1] < dimension[1] - 1)
+              target = [bluePoint[0], bluePoint[1] + 1]
+            break
+          default:
+            break
+        }
+        if (
+          target &&
+          !redAreas.some((redPoint) => checkCollision(redPoint, target))
+        ) {
+          setPointPosition('BLUE', target, bluePoint)
+          setBluePoint(target)
+        }
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [bluePoint, dimension, moveTile, redAreas, setPointPosition])
 
   return (
     <>
@@ -115,17 +187,12 @@ export default function Game() {
           )}
         >
           <div className="pt-4 px-4 container">
-            <Tiles
-              tiles={tiles}
-              moveBlueTile={moveBlueTile}
-              blueTilePosition={blueTilePosition}
-              numCols={numCols}
-            />
+            <Tiles tiles={tiles} moveTile={moveTile} />
             <TimerAndScore score={score} />
           </div>
           <div className="container mt-auto mb-5 align-self-center">
             <div className="row mt-auto">
-              <ArrowControl handleArrowClick={handleArrowClick} />
+              <ArrowControl moveTile={moveTile} />
             </div>
           </div>
         </div>

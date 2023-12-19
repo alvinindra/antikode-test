@@ -1,6 +1,6 @@
 export const ArrowDirectionEnum = {
-  UP: 'up',
-  DOWN: 'down',
-  RIGHT: 'right',
-  LEFT: 'left',
+  UP: 'UP',
+  DOWN: 'DOWN',
+  RIGHT: 'RIGHT',
+  LEFT: 'LEFT',
 }

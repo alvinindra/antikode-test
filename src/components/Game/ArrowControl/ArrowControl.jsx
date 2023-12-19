@@ -2,13 +2,13 @@ import clsx from 'clsx'
 import styles from './ArrowControl.module.scss'
 import { ArrowDirectionEnum } from '@/utils/enum'
 
-export default function ArrowControl({ handleArrowClick }) {
+export default function ArrowControl({ moveTile }) {
   return (
     <div className="container d-flex flex-column gap-3">
       <div className="row justify-content-center">
         <div
           className={clsx('col-1', styles.arrowControl)}
-          onClick={() => handleArrowClick(ArrowDirectionEnum.UP)}
+          onClick={moveTile(ArrowDirectionEnum.UP)}
         >
           <i className={clsx(styles.arrow, styles.up)}></i>
         </div>
@@ -16,13 +16,13 @@ export default function ArrowControl({ handleArrowClick }) {
       <div className="row justify-content-center">
         <div
           className={clsx('col-1 ms-auto me-5', styles.arrowControl)}
-          onClick={() => handleArrowClick(ArrowDirectionEnum.LEFT)}
+          onClick={moveTile(ArrowDirectionEnum.LEFT)}
         >
           <i className={clsx(styles.arrow, styles.left)}></i>
         </div>
         <div
           className={clsx('col-1 me-auto ms-5', styles.arrowControl)}
-          onClick={() => handleArrowClick(ArrowDirectionEnum.RIGHT)}
+          onClick={moveTile(ArrowDirectionEnum.RIGHT)}
         >
           <i className={clsx(styles.arrow, styles.right)}></i>
         </div>
@@ -30,7 +30,7 @@ export default function ArrowControl({ handleArrowClick }) {
       <div className="row justify-content-center">
         <div
           className={clsx('col-1', styles.arrowControl)}
-          onClick={() => handleArrowClick(ArrowDirectionEnum.DOWN)}
+          onClick={moveTile(ArrowDirectionEnum.DOWN)}
         >
           <i className={clsx(styles.arrow, styles.down)}></i>
         </div>
