@@ -95,13 +95,16 @@ export default function Game() {
 
   useEffect(() => {
     if ((bluePoint && !yellowPoint) || checkCollision(bluePoint, yellowPoint)) {
-      const point = Math.floor(Math.random() * whiteAreas.length) - 1
-      if (point >= 0) {
-        const target = whiteAreas[point]
-        if (target) {
-          setPointPosition('YELLOW', target)
-          setYellowPoint(target)
-        }
+      const availableWhiteAreas = whiteAreas.filter(
+        (area) => !checkCollision(area, bluePoint)
+      )
+
+      const point = Math.floor(Math.random() * availableWhiteAreas.length)
+      const target = availableWhiteAreas[point]
+
+      if (target) {
+        setPointPosition('YELLOW', target)
+        setYellowPoint(target)
       }
     }
   }, [bluePoint, yellowPoint, whiteAreas, setPointPosition])
