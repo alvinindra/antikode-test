@@ -9,6 +9,7 @@ export default function ArrowControl({ moveTile }) {
         <div
           className={clsx('col-1', styles.arrowControl)}
           onClick={moveTile(ArrowDirectionEnum.UP)}
+          aria-label="Arrow Up"
         >
           <i className={clsx(styles.arrow, styles.up)}></i>
         </div>
@@ -17,12 +18,14 @@ export default function ArrowControl({ moveTile }) {
         <div
           className={clsx('col-1 ms-auto me-5', styles.arrowControl)}
           onClick={moveTile(ArrowDirectionEnum.LEFT)}
+          aria-label="Arrow Left"
         >
           <i className={clsx(styles.arrow, styles.left)}></i>
         </div>
         <div
           className={clsx('col-1 me-auto ms-5', styles.arrowControl)}
           onClick={moveTile(ArrowDirectionEnum.RIGHT)}
+          aria-label="Arrow Right"
         >
           <i className={clsx(styles.arrow, styles.right)}></i>
         </div>
@@ -31,6 +34,7 @@ export default function ArrowControl({ moveTile }) {
         <div
           className={clsx('col-1', styles.arrowControl)}
           onClick={moveTile(ArrowDirectionEnum.DOWN)}
+          aria-label="Arrow Down"
         >
           <i className={clsx(styles.arrow, styles.down)}></i>
         </div>

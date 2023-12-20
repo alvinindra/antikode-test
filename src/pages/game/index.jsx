@@ -182,6 +182,17 @@ export default function Game() {
     <>
       <Head>
         <title>Tic Tac Tiles</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta property="og:title" content="Tic Tac Tiles" />
+        <meta
+          name="description"
+          content="Tic Tac Tiles is a captivating game where the objective is to navigate the blue tile, ensuring collisions with the yellow tile for accumulating game points. Enjoy an engaging gaming experience as you strategize to maximize your score in this exciting tile-based logic game"
+        />
+        <meta
+          property="og:description"
+          content="Tic Tac Tiles is a captivating game where the objective is to navigate the blue tile, ensuring collisions with the yellow tile for accumulating game points. Enjoy an engaging gaming experience as you strategize to maximize your score in this exciting tile-based logic game."
+        />
       </Head>
       <main>
         <div
