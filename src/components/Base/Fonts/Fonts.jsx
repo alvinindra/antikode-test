@@ -24,12 +24,14 @@ const Tstar = localFont({
       weight: '800',
     },
   ],
+  adjustFontFallback: 'Arial',
 })
 
 const Trebuc = localFont({
   src: '../../../assets/fonts/trebuc.woff',
   variable: '--font-trebuc',
   display: 'swap',
+  adjustFontFallback: 'Arial',
 })
 
 export { Tstar, Trebuc }

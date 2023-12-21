@@ -1,5 +1,7 @@
 import Head from 'next/head'
 import { Tstar, Trebuc } from '@/components/Base/Fonts/Fonts'
+import HomeJumbotron from '@/components/Home/HomeJumbotron/HomeJumbotron'
+import clsx from 'clsx'
 
 export default function Home() {
   return (
@@ -10,8 +12,8 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={`${Tstar.className} ${Trebuc.className}`}>
-        <h1>FRONTEND DEVELOPER TEST</h1>
+      <main className={clsx(Tstar.variable, Trebuc.variable)}>
+        <HomeJumbotron />
       </main>
     </>
   )

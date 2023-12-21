@@ -1,7 +1,12 @@
 @import './abstracts/variables';
 @import '~bootstrap/scss/bootstrap';
 @import './abstracts/typography';
+@import './vendors/custom';
 
 .container-mobile {
   max-width: 375px;
+}
+
+.container-space {
+  padding: 80px 0 88px;
 }

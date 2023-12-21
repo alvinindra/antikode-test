@@ -1,0 +1,17 @@
+.nav-item {
+  .nav-link {
+    font-family: var(--font-tstar);
+    font-size: 18px;
+    font-style: normal;
+    line-height: 24px; /* 133.333% */
+    letter-spacing: 0.2px;
+    padding: 8px 20px !important;
+    color: $white80;
+
+    &.active,
+    &:hover {
+      color: white;
+      font-weight: 700;
+    }
+  }
+}
