@@ -6,7 +6,7 @@
     line-height: 24px; /* 133.333% */
     letter-spacing: 0.2px;
     padding: 8px 20px !important;
-    color: $white80;
+    color: var(--white-80);
 
     &.active,
     &:hover {
@@ -14,4 +14,12 @@
       font-weight: 700;
     }
   }
+}
+
+a {
+  text-decoration: none;
+}
+
+.container-fluid {
+  padding: 0;
 }
