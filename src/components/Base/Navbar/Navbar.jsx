@@ -46,11 +46,16 @@ const listLinks = [
   },
 ]
 
-export default function Navbar() {
+export default function Navbar({ isDark = false }) {
   const router = useRouter()
 
   return (
-    <nav className="navbar py-3 navbar-expand-lg bg-transparent">
+    <nav
+      className={clsx(
+        'navbar py-3 navbar-expand-lg bg-transparent',
+        isDark && 'navbar-dark'
+      )}
+    >
       <div className="container-fluid">
         <a className="navbar-brand" href="#">
           <Image src="/img/logo.png" width="160" height="50" alt="" />
