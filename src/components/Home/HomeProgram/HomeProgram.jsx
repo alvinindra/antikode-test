@@ -4,7 +4,10 @@ import Image from 'next/image'
 
 export default function HomeProgram() {
   return (
-    <div className={clsx(styles.bgProgram, 'container-fluid bg-gray')}>
+    <div
+      className={clsx(styles.bgProgram, 'container-fluid bg-gray')}
+      id="program"
+    >
       <div className="container-fluid container-space position-relative">
         <div className="container">
           <div className="row">

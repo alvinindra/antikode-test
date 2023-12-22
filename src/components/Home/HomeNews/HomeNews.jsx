@@ -36,7 +36,10 @@ export default function HomeNews() {
   const router = useRouter()
 
   return (
-    <div className={clsx('container-fluid', styles.bgCareer, styles.space)}>
+    <div
+      className={clsx('container-fluid', styles.bgCareer, styles.space)}
+      id="news"
+    >
       <div className="container container-space">
         <div className="row">
           <div className={clsx(styles.spaceTitle, 'col-12')}>

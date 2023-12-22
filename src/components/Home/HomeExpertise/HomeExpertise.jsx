@@ -49,7 +49,7 @@ const listExpertise = [
 
 export default function HomeExpertise() {
   return (
-    <div className="container-fluid bg-gray">
+    <div className="container-fluid bg-gray" id="expertise">
       <div className="container container-space">
         <div className="row">
           <div className="col-12 col-lg-8 mb-56px">

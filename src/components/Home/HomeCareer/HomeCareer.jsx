@@ -5,7 +5,10 @@ import ICArrowNext from '@/icons/arrow/icon-next.svg'
 
 export default function HomeCareer() {
   return (
-    <div className={clsx('container-fluid', styles.bgCareer, styles.space)}>
+    <div
+      className={clsx('container-fluid', styles.bgCareer, styles.space)}
+      id="career"
+    >
       <div className="container">
         <div className="row">
           <div className="col-lg-5">
