@@ -6,6 +6,7 @@ import ICKlobility from '@/icons/expertise//klobility.svg'
 import ICTransformation from '@/icons/expertise/transformation.svg'
 import ICNext from '@/icons/arrow/icon-next40.svg'
 import styles from './HomeExpertise.module.scss'
+import Link from 'next/link'
 
 const listExpertise = [
   {
@@ -61,10 +62,10 @@ export default function HomeExpertise() {
             </div>
           </div>
         </div>
-        <div className="row row-cols-lg-3 g-32px">
+        <div className="row row-cols-1 row-cols-lg-3 g-32px">
           {listExpertise.map((expertise) => (
             <div className="col mb-32px" key={expertise.id}>
-              <div className={styles.expertise}>
+              <Link className={styles.expertise} href="/">
                 <div className={styles.expertiseBgImage}>
                   {expertise.id !== 2 && (
                     <div className={styles.expertiseBgRed}>
@@ -73,9 +74,12 @@ export default function HomeExpertise() {
                         width={0}
                         height={0}
                         sizes="100vw"
-                        style={{ width: '100%', height: 'auto' }}
+                        style={{
+                          width: '100%',
+                          height: 'auto',
+                          objectFit: 'cover',
+                        }}
                         alt=""
-                        objectFit="cover"
                       />
                     </div>
                   )}
@@ -85,9 +89,12 @@ export default function HomeExpertise() {
                     width={0}
                     height={0}
                     sizes="100vw"
-                    style={{ width: '100%', height: 'auto' }}
-                    alt=""
-                    objectFit="cover"
+                    style={{
+                      width: '100%',
+                      height: 'auto',
+                      objectFit: 'cover',
+                    }}
+                    alt={expertise.title}
                   />
                 </div>
                 <div className={styles.expertiseContent}>
@@ -97,7 +104,7 @@ export default function HomeExpertise() {
                   </h3>
                 </div>
                 <ICNext className={styles.iconNext} />
-              </div>
+              </Link>
             </div>
           ))}
         </div>

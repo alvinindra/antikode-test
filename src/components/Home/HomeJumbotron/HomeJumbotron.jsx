@@ -75,16 +75,15 @@ export default function HomeJumbotron() {
           </div>
         </div>
         <div className="col-12 col-lg-5 d-flex">
-          <div className="d-flex my-auto flex-row py-4">
+          <div className="d-flex my-auto mx-auto flex-md-row flex-column py-4">
             <Image
-              className="ms-4 me-32px w-100"
+              className="ms-4 me-32px"
               src="/img/jumbotron/weps.png"
               alt="Proud to Support Women's Empowerment Principles"
               width={195}
               height={64}
             />
             <Image
-              className="w-100"
               src="/img/jumbotron/iso.png"
               alt="Certified ISO"
               width={260}

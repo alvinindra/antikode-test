@@ -9,6 +9,10 @@
 
 .container-space {
   padding: 80px 0 88px;
+
+  @media (max-width: 769px) {
+    padding: 50px 24px 58px;
+  }
 }
 
 .underline-animation {

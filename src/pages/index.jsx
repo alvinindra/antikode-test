@@ -3,6 +3,7 @@ import { Tstar, Trebuc } from '@/components/Base/Fonts/Fonts'
 import HomeJumbotron from '@/components/Home/HomeJumbotron/HomeJumbotron'
 import clsx from 'clsx'
 import HomeExpertise from '@/components/Home/HomeExpertise/HomeExpertise'
+import HomeCareer from '@/components/Home/HomeCareer/HomeCareer'
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
       <main className={clsx(Tstar.variable, Trebuc.variable)}>
         <HomeJumbotron />
         <HomeExpertise />
+        <HomeCareer />
       </main>
     </>
   )

@@ -51,7 +51,7 @@ export default function Navbar() {
 
   return (
     <nav className="navbar py-3 navbar-expand-lg bg-transparent">
-      <div className="container-fluid px-0">
+      <div className="container-fluid">
         <a className="navbar-brand" href="#">
           <Image src="/img/logo.png" width="160" height="50" alt="" />
         </a>
@@ -81,7 +81,23 @@ export default function Navbar() {
                   aria-current="page"
                   href={link.path}
                 >
-                  {link.name}
+                  <div className="d-flex flex-column justify-content-center text-center">
+                    <div>{link.name}</div>
+                    {(link.path === router.asPath ||
+                      (link.name === 'Home' && router.asPath === '/#') ||
+                      router.asPath.startsWith('/' + link.path)) && (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="6"
+                        height="6"
+                        viewBox="0 0 6 6"
+                        fill="none"
+                        className="mx-auto mt-1"
+                      >
+                        <circle cx="3" cy="3" r="3" fill="#B92322" />
+                      </svg>
+                    )}
+                  </div>
                 </Link>
               </li>
             ))}
