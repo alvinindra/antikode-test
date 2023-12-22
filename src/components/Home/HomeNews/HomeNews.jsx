@@ -3,6 +3,7 @@ import styles from './HomeNews.module.scss'
 import Link from 'next/link'
 import ICNextArrowRed from '@/icons/arrow/icon-arrow-red.svg'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 const listNews = [
   {
@@ -32,6 +33,8 @@ const listNews = [
 ]
 
 export default function HomeNews() {
+  const router = useRouter()
+
   return (
     <div className={clsx('container-fluid', styles.bgCareer, styles.space)}>
       <div className="container container-space">
@@ -62,8 +65,12 @@ export default function HomeNews() {
             />
           </div>
           <div className="col-12 col-lg-7 border-top">
-            {listNews.map((newLink) => (
-              <Link className={styles.news} href="/" key={newLink.id}>
+            {listNews?.map((newLink) => (
+              <div
+                className={styles.news}
+                key={newLink.id}
+                onClick={() => router.push('/')}
+              >
                 <div className={styles.newsSection}>
                   <div className="d-flex flex-column">
                     <div className="text-desktop-section text-nowrap">
@@ -76,7 +83,7 @@ export default function HomeNews() {
                 <Link href="/" className="ms-auto">
                   <ICNextArrowRed className="mb-auto" />
                 </Link>
-              </Link>
+              </div>
             ))}
           </div>
         </div>
