@@ -8,25 +8,36 @@ h6,
   font-family: var(--font-tstar);
 }
 
-h1 {
+h1,
+.h1 {
   font-size: 52px;
   font-style: normal;
   font-weight: 300;
   line-height: 64px;
 }
 
-h2 {
+h2,
+.h2 {
   font-size: 42px;
   font-style: normal;
   font-weight: 400;
   line-height: 56px; /* 133.333% */
 }
 
-h3 {
+h3,
+.h3 {
   font-size: 36px;
   font-style: normal;
   font-weight: 300;
   line-height: 46px;
+}
+
+h4,
+.h4 {
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 32px; /* 133.333% */
 }
 
 .bg-gray {
@@ -39,6 +50,15 @@ h3 {
   font-style: normal;
   font-weight: 400;
   line-height: 24px; /* 150% */
+  letter-spacing: 0.2px;
+}
+
+.text-dekstop-body2 {
+  font-family: var(--font-tstar);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 142.857% */
   letter-spacing: 0.2px;
 }
 

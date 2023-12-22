@@ -1,9 +1,10 @@
 import Head from 'next/head'
 import { Tstar, Trebuc } from '@/components/Base/Fonts/Fonts'
-import HomeJumbotron from '@/components/Home/HomeJumbotron/HomeJumbotron'
 import clsx from 'clsx'
+import HomeJumbotron from '@/components/Home/HomeJumbotron/HomeJumbotron'
 import HomeExpertise from '@/components/Home/HomeExpertise/HomeExpertise'
 import HomeCareer from '@/components/Home/HomeCareer/HomeCareer'
+import Footer from '@/components/Base/Footer/Footer'
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
         <HomeJumbotron />
         <HomeExpertise />
         <HomeCareer />
+        <Footer />
       </main>
     </>
   )

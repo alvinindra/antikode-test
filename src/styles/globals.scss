@@ -3,6 +3,10 @@
 @import './abstracts/typography';
 @import './vendors/custom';
 
+html {
+  scroll-behavior: smooth;
+}
+
 .container-mobile {
   max-width: 375px;
 }
@@ -37,6 +41,10 @@
 .underline-animation:hover::after {
   transform: scaleX(1);
   transform-origin: bottom left;
+}
+
+.mb-12px {
+  margin-bottom: 12px;
 }
 
 .me-32px {
