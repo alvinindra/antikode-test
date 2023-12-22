@@ -1,0 +1,23 @@
+.bgProgram {
+  background: url('/img/program/bgprogram.png');
+  max-height: 598px;
+
+  @media (max-width: 992px) {
+    background: url('/img/program/mask-program.svg');
+  }
+}
+
+.absoluteContainer {
+  position: absolute;
+  top: 160px;
+}
+
+.programTitle {
+  color: white;
+  font-family: var(--font-tstar);
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 40px; /* 142.857% */
+  margin-bottom: 24px;
+}

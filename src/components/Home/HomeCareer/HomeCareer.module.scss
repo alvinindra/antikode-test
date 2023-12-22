@@ -1,0 +1,15 @@
+.space {
+  padding: 172px 24px;
+}
+
+.bgCareer {
+  background-image: linear-gradient(
+      272deg,
+      rgb(0 0 0 / 0%) 22.78%,
+      rgb(0 0 0 / 89%) 100%
+    ),
+    url(/img/career/bg-career.png);
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
