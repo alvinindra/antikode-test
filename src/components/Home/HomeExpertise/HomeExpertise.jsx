@@ -53,7 +53,7 @@ export default function HomeExpertise() {
       <div className="container container-space">
         <div className="row">
           <div className="col-12 col-lg-8 mb-56px">
-            <h2>Expertise</h2>
+            <h2 className="fw-light">Expertise</h2>
             <div className="text-desktop-body text-dark-gray">
               {`"Organisations who will succeed in the long-run are those who are open
         to new ideas, embrace innovations, instill compassion in every act and

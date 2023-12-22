@@ -47,6 +47,10 @@
   background: var(--light-red);
   border-radius: 100%;
 
+  &:hover {
+    background: var(--mid-red);
+  }
+
   @media (max-width: 577px) {
     right: 24px;
   }
